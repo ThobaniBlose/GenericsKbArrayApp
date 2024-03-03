@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.IOExemption;
 import java.util.Scanner;
 
@@ -74,4 +75,19 @@ public class GenericsKbArrayApp{
     } while (choice != 5);
 
     scanner.close();
+}
+
+private static void loadKnowledgeBase() {
+    try (BufferedReader buffer = new BufferedReader(new FileReader(fileName:"GenericsKB.txt"))){
+        String line;
+
+        while ((line = buffer.readLine()) != null && size < SizeMax){
+            String[] parts = line.split(regex:"\t");
+            knowledgeBase[size++] = new Statement(parts[0], parts[1], Double.parseDouble(parts[2]));
+        }
+        System.out.println("Knowledge base loaded successfully.");
+
+    } catch(IOException e){
+        System.out.println("Error loading knowldge base: " + e.getMessage());
+    }
 }
