@@ -40,7 +40,7 @@ public class GenericsKbArrayApp{
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         int choice;
-    }
+    
 
     do {
         System.out.println("Choose an action from the menu:");
@@ -69,7 +69,7 @@ public class GenericsKbArrayApp{
                 System.out.println("Exiting...");
                 break;
             default:
-                System.out.println("Invalid choice. Please enter a number between 1 and 5.") // So that we will not get an error.
+                System.out.println("Invalid choice. Please enter a number between 1 and 5."); // So that we will not get an error.
 
         }
     } while (choice != 5);
@@ -77,17 +77,18 @@ public class GenericsKbArrayApp{
     scanner.close();
 }
 
-private static void loadKnowledgeBase() {
-    try (BufferedReader buffer = new BufferedReader(new FileReader(fileName:"GenericsKB.txt"))){
-        String line;
+    private static void loadKnowledgeBase() {
+        try (BufferedReader buffer = new BufferedReader(new FileReader("GenericsKB.txt"))){
+            String line;
 
-        while ((line = buffer.readLine()) != null && size < SizeMax){
-            String[] parts = line.split(regex:"\t");
-            knowledgeBase[size++] = new Statement(parts[0], parts[1], Double.parseDouble(parts[2]));
+            while ((line = buffer.readLine()) != null && size < SizeMax){
+                String[] parts = line.split("\t");
+                knowledgeBase[size++] = new Statement(parts[0], parts[1], Double.parseDouble(parts[2]));
+            }
+            System.out.println("Knowledge base loaded successfully.");
+
+        } catch(IOException e){
+            System.out.println("Error loading knowldge base: " + e.getMessage());
         }
-        System.out.println("Knowledge base loaded successfully.");
-
-    } catch(IOException e){
-        System.out.println("Error loading knowldge base: " + e.getMessage());
     }
 }
